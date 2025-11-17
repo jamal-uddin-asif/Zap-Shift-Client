@@ -6,12 +6,12 @@ import ReviewCard from "./ReviewCard";
 const Reviews = ({ reviewsPromise }) => {
   const reviews = use(reviewsPromise);
   return (
-    <div>
-      <div>
-        <h1>What our customers are sayings</h1>
+    <div className="my-10">
+      <div className="text-center  space-y-3 mb-5">
+        <h1 className="text-3xl font-bold">What our customers are sayings</h1>
         <p>
           Enhance posture, mobility, and well-being effortlessly with Posture
-          Pro. Achieve proper alignment, reduce pain, and strengthen your body
+          Pro. Achieve proper alignment, reduce <br /> pain, and strengthen your body
           with ease!
         </p>
       </div>

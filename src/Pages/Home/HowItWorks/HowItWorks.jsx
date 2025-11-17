@@ -6,9 +6,9 @@ import { FaCircleDollarToSlot } from "react-icons/fa6";
 
 const HowItWorks = () => {
   return (
-    <div className="space-y-2 mt-4">
+    <div className="p-2 space-y-2 mt-4">
       <h1 className="font-bold text-2xl">How it Works</h1>
-      <div className="flex items-center gap-8 justify-center">
+      <div className="md:flex space-y-2 items-center gap-8 justify-center">
         <div className="space-y-3 bg-white rounded-xl p-4">
           <img src={delevery} alt="" />
           <h1 className="font-semibold">Booking Pick & Drop</h1>

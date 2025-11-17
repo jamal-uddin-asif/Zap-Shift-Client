@@ -13,7 +13,7 @@ const OurServices = () => {
         on time, every time.
       </p>
 
-      <div className="grid grid-cols-3 gap-3 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 ">
 
         <div className="flex hover:bg-primary flex-col justify-center items-center space-y-2 bg-white p-4 rounded-xl">
           <div className="p-2 bg-linear-to-b from-gray-400 to-white rounded-full">
