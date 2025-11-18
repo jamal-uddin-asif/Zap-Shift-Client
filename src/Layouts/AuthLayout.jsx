@@ -6,14 +6,18 @@ import Container from "../Components/Container/Container";
 
 const AuthLayout = () => {
   return (
-    <div>
+    <div className="">
       <Container>
-        <Logo></Logo>
-        <div className="flex ">
-          <div className="flex-1">
-            <Outlet></Outlet>
+        <div className="md:flex justify-center items-center h-[100vh] ">
+          <div className="flex-1 flex justify-center items-center ">
+            <div>
+              <div className="-ms-13">
+                <Logo></Logo>
+              </div>
+              <Outlet></Outlet>
+            </div>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 h-screen  bg-[#FAFDF0]">
             <img src={authImg} alt="" />
           </div>
         </div>
