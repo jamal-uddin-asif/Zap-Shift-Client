@@ -8,10 +8,10 @@ const AuthLayout = () => {
   return (
     <div className="">
       <Container>
-        <div className="md:flex justify-center items-center h-[100vh] ">
+        <div className="md:flex justify-center items-center mig-h-screen ">
           <div className="flex-1 flex justify-center items-center ">
             <div>
-              <div className="-ms-13">
+              <div className="-ms-10">
                 <Logo></Logo>
               </div>
               <Outlet></Outlet>

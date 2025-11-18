@@ -2,6 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Container from "../../../Components/Container/Container";
 import { useAuth } from "../../../Hooks/useAuth";
+import { Link } from "react-router";
+import SocialLogin from "../SocialLogin/SocialLogin";
 
 const Register = () => {
   const { createUser } = useAuth();
@@ -77,11 +79,15 @@ const Register = () => {
               {/* <div>
                 <a className="link link-hover">Forgot password?</a>
               </div> */}
-              <button className="btn w-full btn-neutral mt-4">
+              <button className="btn w-full bg-[#FAFDF0] mt-4">
                 Register Now
               </button>
             </fieldset>
+             <p className="text-gray-400">
+            Already have an account? <Link to={'/login'} className="text-blue-700 link-hover"> login</Link>
+          </p>
           </form>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </Container>
