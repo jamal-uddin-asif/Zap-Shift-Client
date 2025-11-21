@@ -1,12 +1,39 @@
 import React from "react";
 import Logo from "../../../Components/Logo/Logo";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
+import { useAuth } from "../../../Hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Navber = () => {
-    const links = <>
-        <li><NavLink>Services</NavLink></li>
-        <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
+  const { user, logOutUser } = useAuth();
+
+
+  const handleSignOut = () =>{
+    logOutUser()
+    .then(()=>{
+      toast.success("SignOut successful")
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  }
+
+  const links = (
+    <>
+      <li>
+        <NavLink >Services</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/coverage"}>Coverage</NavLink>
+      </li>
+      <li>
+        <NavLink>About Us</NavLink>
+      </li>
+      <li>
+        <NavLink to={"/sendParcel"}>Send Parcel</NavLink>
+      </li>
     </>
+  );
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -32,20 +59,21 @@ const Navber = () => {
             tabIndex="-1"
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-    {links}
+            {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
-            <Logo></Logo>
-        </a>
+        <div className="btn btn-ghost text-xl">
+          <Logo></Logo>
+        </div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-     {links}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end">
-        <a className="btn">Button</a>
+      <div className="space-x-2 navbar-end">
+        {
+          user? <button onClick={handleSignOut} className="btn btn-outline">Sign Out</button>:<Link to='/login' className="btn">Sign In</Link>
+        }
+        <Link to={'/beARider'} className="bg-primary btn ">Be a rider</Link>
       </div>
     </div>
   );

@@ -2,11 +2,17 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Container from "../../../Components/Container/Container";
 import { useAuth } from "../../../Hooks/useAuth";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const Register = () => {
-  const { createUser } = useAuth();
+  const { createUser, updateUserProfile } = useAuth();
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  const from = location.state || '/'
 
   const {
     register,
@@ -15,11 +21,37 @@ const Register = () => {
   } = useForm();
 
   const handleRegister = (data) => {
-    console.log(data);
+
+    // console.log(data.photo[0]);
+    const profileImage = data.photo[0]
 
     createUser(data.email, data.password)
       .then((result) => {
         console.log(result);
+        // store the image in form data
+        const formData = new FormData()
+        formData.append('image', profileImage)
+
+        // send the photo to store and get the url 
+        const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOST_KEY}`
+        axios.post(image_API_URL, formData)
+        .then(result=>{
+
+          const updateProfile = {
+            displayName: data.name,
+            photoURL: result.data.data.url
+          }
+
+          updateUserProfile(updateProfile)
+          .then(()=>{
+            console.log("After update profile")
+            toast.success("Registration successful")
+            navigate(from)
+
+          }).catch(err=>{
+            console.log(err)
+          })
+        })
       })
       .catch((err) => {
         console.log(err);
@@ -39,6 +71,28 @@ const Register = () => {
           </div>
           <form onSubmit={handleSubmit(handleRegister)}>
             <fieldset className="fieldset">
+              <label className="label">Name</label>
+              {/* <br /> */}
+              <input
+                type="text"
+                {...register("name", { required: true })}
+                className="input w-full"
+                placeholder="name"
+              />
+              {errors.name?.type === "required" && (
+                <p className="text-red-600 m-0 p-0">Name is required</p>
+              )}
+              <label className="label">Photo</label>
+              {/* <br /> */}
+              <input
+                type="file"
+                {...register("photo", { required: true })}
+                className="file-input w-full"
+                placeholder="photo"
+              />
+              {errors.photo?.type === "required" && (
+                <p className="text-red-600 m-0 p-0">Photo is required</p>
+              )}
               <label className="label">Email</label>
               {/* <br /> */}
               <input
@@ -84,7 +138,7 @@ const Register = () => {
               </button>
             </fieldset>
              <p className="text-gray-400">
-            Already have an account? <Link to={'/login'} className="text-blue-700 link-hover"> login</Link>
+            Already have an account? <Link state={from} to={'/login'} className="text-blue-700 link-hover"> login</Link>
           </p>
           </form>
           <SocialLogin></SocialLogin>
